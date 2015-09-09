@@ -1,0 +1,11 @@
+doctype html
+html
+    head
+        title= 'Mock2easy'
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/util/bootstrap.css')
+        link(rel='stylesheet', href='/stylesheets/util/angular-ui.css')
+        | <script>window.interfaceSuffix="#{interfaceSuffix}";window.language = !{language}</script>
+    body(style="padding:10px;")
+        div(ui-view)
+        script(src="/bundle.js")

@@ -1,0 +1,21 @@
+
+
+var options =  {
+  port:5000,
+  lazyLoadTime:3000,
+  database:'mock2easy',
+  doc:'doc',
+  keepAlive:true,
+  isSpider:false,
+  ignoreField:[],
+  interfaceSuffix:'.json',
+  preferredLanguage:'en'
+};
+
+
+require('../app')({
+  log:console.log,
+  error:console.error
+},options).listen(options.port, function() {
+  console.log('mock2easy is starting , please visit : http://localhost:');
+});

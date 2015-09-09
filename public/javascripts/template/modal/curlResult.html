@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <form novalidate="novalidate" name="form" role="form" class="navbar-form">
+
+        <div class="input-group">
+            <input type="text" ng-required="true" name="url" interface-suffix="{{data.interfaceSuffix}}" ng-model="data.url" can-add="data"
+                   typeahead="i for i in data.path | filter:$viewValue"
+                   placeholder="{{'MAIN-ADD-EXPLANATION'|translate:'{interfaceSuffix:interfaceSuffix}'}}" class="form-control"/>
+            <span class="input-group-btn">
+                <button ng-disabled="form.$invalid" ng-click="record()" class="btn btn-default btn-success">{{'RECORD'|translate}}</button>
+            </span>
+        </div>
+        <p ng-if="form.url.$error.isOK" class="text-danger" style=" margin-top: 10px; ">
+          {{'MAIN-ADD-EXPLANATION'|translate:'{interfaceSuffix:interfaceSuffix}'}}</p>
+
+        <p ng-if="form.url.$error.isOnly" class="text-danger" style=" margin-top: 10px; ">{{'ERROR-ALREADY-EXISTS'|translate}}</p>
+    </form>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label>{{'DETAIL-URL'|translate}}</label>
+
+        <p class="help-block" ng-bind="data.interfaceUrl"></p>
+    </div>
+    <div class="form-group">
+        <label>{{'DETAIL-TYPE'|translate}}</label>
+
+        <p class="help-block" ng-bind="data.interfaceType"></p>
+    </div>
+
+    <label>{{'DETAIL-REQUEST-PARAMETERS'|translate}}</label>
+
+    <ul>
+        <li ng-repeat="i in data.requiredParameters">
+            <strong ng-bind="i.key"></strong>
+            <span>:</span>
+            <span class="text-muted" ng-bind="i.value"></span>
+        </li>
+    </ul>
+
+    <label>{{'DETAIL-RETURN-INTERFACE'|translate}}</label>
+
+    <div class="well well-sm" json-format="data.responseParameters" style="margin-bottom: 0;">
+    </div>
+
+</div>

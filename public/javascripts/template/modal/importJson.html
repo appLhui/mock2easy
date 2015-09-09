@@ -1,0 +1,12 @@
+<form name="import" role="form" novalidate="novalidate">
+    <div class="modal-header">
+        <h5>{{'DETAIL-IMPORT-TITLE'|translate}}</h5>
+    </div>
+    <div class="modal-body">
+        <textarea name="json" json-verify ng-required="true" ng-model="json" placeholder="{{'DETAIL-IMPORT-INPUT'|translate}}" style="height: 350px;" class="form-control"></textarea>
+    </div>
+    <p ng-if="import.json.$error.json" class="text-danger" style=" margin-left: 18px; ">{{'DETAIL-IMPORT-ERROR'|translate}}</p>
+    <div class="modal-footer">
+        <button ng-click="importResponseParameters(json)" ng-disabled="import.$invalid" class="btn btn-primary">{{'SUBMIT'|translate}}</button>
+    </div>
+</form>

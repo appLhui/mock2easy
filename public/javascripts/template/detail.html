@@ -1,0 +1,240 @@
+<form name="addForm" role="form" novalidate="novalidate" class="form-horizontal">
+
+<div class="row" style="padding-bottom: 54px;">
+<div class="col-md-7">
+  <div class="panel panel-info clearfix">
+    <div class="panel-heading">
+      <h6 class="panel-title">{{'DETAIL-TITLE'|translate}}</h6>
+    </div>
+    <div class="panel-body">
+
+      <div ng-class="{'has-error':addForm.interfaceUrl.$dirty &amp;&amp; addForm.interfaceUrl.$invalid}"
+           class="form-group has-feedback">
+        <label class="col-sm-3 control-label">{{'DETAIL-URL'|translate}}：</label>
+
+        <div class="col-sm-9 form-control-static">
+          <span class=" text-info" ng-bind="data.interfaceUrl"> </span>
+        </div>
+      </div>
+
+
+      <div class="form-group has-feedback">
+        <label class="col-sm-3 control-label">{{'DETAIL-LAZY-LOAD'|translate}}：</label>
+
+        <div class="col-sm-9">
+          <label class="radio-inline">
+            <input ng-model="data.lazyLoad" type="radio" value="no"/><span>NO</span>
+          </label>
+          <label class="radio-inline">
+            <input ng-model="data.lazyLoad" type="radio" value="yes"/><span>YES</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{'DETAIL-TYPE'|translate}}：</label>
+
+        <div class="col-sm-9">
+          <label class="radio-inline">
+            <input ng-model="data.interfaceType" type="radio" name="interfaceType" value="GET"/><span>GET</span>
+          </label>
+          <label class="radio-inline">
+            <input ng-model="data.interfaceType" type="radio" name="interfaceType" value="POST"/><span>POST</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">jsonp：</label>
+
+        <div class="col-sm-3">
+          <label class="checkbox-inline">
+            <input ng-model="data.isJsonp" type="checkbox" name="isJsonp"/><span>{{'DETAIL-JSONP'|translate}}</span>
+          </label>
+        </div>
+        <div class="col-sm-6">
+          <input class="form-control" ng-model="data.jsonpCallback" ng-required="true" ng-if="data.isJsonp" placeholder="jsonpCallback"/>
+        </div>
+      </div>
+
+
+      <div ng-class="{'has-error':addForm.interfaceName.$dirty &amp;&amp; addForm.interfaceName.$invalid}"
+           class="form-group has-feedback">
+        <label class="col-sm-3 control-label">{{'DETAIL-REMARK'|translate}}：</label>
+
+        <div class="col-sm-9">
+          <input ng-model="data.interfaceName" name="interfaceName" placeholder="{{'REQUIRED'|translate}}" ng-required="true"
+                 class="form-control"/><span
+          ng-if="addForm.interfaceName.$dirty &amp;&amp; addForm.interfaceName.$invalid" tooltip="{{'REQUIRED'|translate}}"
+          class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading clearfix">
+      <h6 class="panel-title pull-left">{{'DETAIL-REQUEST-PARAMETERS'|translate}}</h6>
+      <a ng-click="addRequiredParameters()" tooltip="{{'ADD'|translate}}" class="btn btn-default btn-sm btn-xs pull-right">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </div>
+    <table class="table table-bordered tableList">
+      <thead>
+      <tr>
+        <th style="width: 44px;">{{'REQUIRED'|translate}}</th>
+        <th>{{'DETAIL-PARAMETERS-NAME'|translate}}</th>
+        <th>{{'DETAIL-REMARK'|translate}}</th>
+        <th width="45">{{'OPERATING'|translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="i in data.requiredParameters">
+        <td style=" text-align: center; vertical-align: middle; ">
+          <input  style="height: auto;width: auto;float: none;" type="checkbox" ng-model="i.required">
+        </td>
+        <td ng-class="{'has-error':addForm[i.nameVerify].$dirty &amp;&amp; addForm[i.nameVerify].$invalid}"
+            class="form-group has-feedback">
+          <input ng-model="i.name" dy-name="i.nameVerify" placeholder="{{'REQUIRED'|translate}}" ng-required="true"
+                 class="form-control"/>
+              <span ng-if="addForm[i.nameVerify].$dirty &amp;&amp; addForm[i.nameVerify].$invalid" tooltip="{{'REQUIRED'|translate}}"
+                    class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
+        </td>
+        <td>
+          <input symbol-filter ng-model="i.remark" class="form-control"/>
+        </td>
+        <td align="center">
+          <a ng-click="removeRequiredParameters($index)" tooltip="{{'DELETE'|translate}}" style="margin-top: 3px;" class="btn btn-sm glyphicon glyphicon-minus text-danger"></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <tabset justified="true">
+    <tab heading="{{'DETAIL-RETURN-DYNAMIC-INTERFACE'|translate}}" select="data.responseParametersType=false">
+
+      <div class="clearfix" style="border-right: 1px solid #e3e3e3;padding: 10px;border-left: 1px solid #e3e3e3;">
+        <a ng-click="addResponseParameters('')" tooltip="{{'ADD'|translate}}" class="btn btn-default btn-sm btn-xs pull-right">
+          <span class="glyphicon glyphicon-plus"></span>
+        </a>
+        <a ng-click="openWin()" tooltip="{{'IMPORT'|translate}}" style="margin-right:10px;"
+           class="btn btn-default btn-sm btn-xs pull-right">
+          <span class="glyphicon glyphicon-import"></span>
+        </a>
+      </div>
+      <table class="table table-bordered tableList">
+        <thead>
+        <tr>
+          <th>{{'DETAIL-PARAMETERS-NAME'|translate}}</th>
+          <th>{{'VARIATION-LAW'|translate}}</th>
+          <th width="120">{{'TYPE'|translate}}</th>
+          <th>{{'DETAIL-REMARK'|translate}}</th>
+          <th width="45">{{'OPERATING'|translate}}</th>
+        </tr>
+        </thead>
+        <tbody valign="baseline">
+        <tr ng-repeat="i in data.responseParameters | orderBy : 'id' " can-remove="data.responseParameters"
+            list-id="{{i.id}}">
+          <td ng-class="{'has-error':addForm[i.nameVerify].$dirty &amp;&amp; addForm[i.nameVerify].$invalid}"
+              class="form-group has-feedback" style="position: relative;">
+
+            <span ng-if="i.id.length!=2" class="text-danger" style="top: 9px;left: {{(i.id.length/2 - 1)*6}}%;position: absolute;">&not;</span>
+            <input ng-model="i.name" dy-name="i.nameVerify" placeholder="{{'REQUIRED'|translate}}" ng-required="true"
+                   class="form-control"  style="width:{{100-(i.id.length/2 - 1)*6}}%" /><span
+            ng-if="addForm[i.nameVerify].$dirty &amp;&amp; addForm[i.nameVerify].$invalid" tooltip="{{'REQUIRED'|translate}}"
+            class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
+          </td>
+          <td ng-class="{'has-error':addForm[i.ruleVerify].$dirty &amp;&amp; addForm[i.ruleVerify].$invalid}"
+              class="form-group has-feedback"><strong ng-if="i.kind=='object'"
+                                                      style="margin: 6px 12px;display: inline-block;"
+                                                      class="text-info">{}</strong><strong
+            ng-if="i.kind=='array(object)'" style="margin: 6px 12px;display: inline-block;"
+            class="text-info">[{}]</strong>
+            <input ng-model="i.rule" array2str dy-name="i.ruleVerify" placeholder="{{'REQUIRED'|translate}}" ng-required="true"
+                   ng-if="i.kind!='object'&amp;&amp; i.kind!='array(object)'" class="form-control"/>
+                <span ng-if="addForm[i.ruleVerify].$dirty &amp;&amp; addForm[i.ruleVerify].$invalid" tooltip="{{'REQUIRED'|translate}}"
+                      class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
+          </td>
+          <td align="center"><span ng-bind="i.kind" style="display:none;margin-top:6px;"
+                                   class="disabled-select"></span>
+            <select ng-model="i.kind" style="margin-top: 8px;">
+              <option>string</option>
+              <option>mock</option>
+              <option>object</option>
+              <option>array(object)</option>
+            </select>
+          </td>
+          <td>
+            <input symbol-filter ng-model="i.remark"  class="form-control"/>
+          </td>
+          <td align="center">
+            <a ng-click="addResponseParameters(i.id)" ng-if="i.kind=='object'||i.kind=='array(object)'" tooltip="{{'ADD'|translate}}" style="margin-top: 3px;padding: 10px 0px;"  class="btn btn-sm glyphicon glyphicon-plus text-success"></a>
+            <a ng-click="removeResponseParameters($index)" tooltip="{{'DELETE'|translate}}" style="margin-top: 3px;padding: 10px 0px;" class="btn btn-sm glyphicon glyphicon-minus text-danger"></a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+
+    </tab>
+    <tab heading="{{'DETAIL-RETURN-STATIC-INTERFACE'|translate}}" select="data.responseParametersType=true" active="data.responseParametersType">
+      <div style="border-right: 1px solid #e3e3e3;border-left: 1px solid #e3e3e3;border-bottom: 1px solid #e3e3e3;">
+        <textarea placeholder="{{'DETAIL-FILL-OUT'|translate}}" is-json ng-model="data.responseJson"
+                  style="padding: 10px;resize: vertical;min-height:300px;border-color: #ffffff;width: 100%;"></textarea>
+      </div>
+    </tab>
+  </tabset>
+
+
+</div>
+<div class="col-md-5 well well-sm">
+  <div class="panel-body">
+    <a href="http://mockjs.com/demo/mock.html" target="_blank">{{'DETAIL-MOCKJS-DEMO'|translate}}&gt;&gt;</a>
+
+    <h6>{{'DETAIL-URL'|translate}}</h6>
+
+    <p ng-bind="data.interfaceUrl" ng-if="data.interfaceUrl.length" class="text-muted"></p>
+    <p ng-if="!data.interfaceUrl.length" class="text-muted">--</p>
+
+    <h6>{{'DETAIL-TYPE'|translate}}</h6>
+    <p ng-bind="data.interfaceType" class="text-muted"></p>
+
+    <h6>{{'DETAIL-REMARK'|translate}}</h6>
+
+    <p ng-bind="data.interfaceName" ng-if="data.interfaceName.length" class="text-muted"></p>
+    <p ng-if="!data.interfaceName.length" class="text-muted">--</p>
+
+    <h6>{{'DETAIL-REQUEST-PARAMETERS'|translate}}</h6>
+    <ul>
+      <li ng-repeat="i in data.requiredParameters">
+        <strong ng-if="i.name.length" ng-class="{'text-muted':!i.required}">{{i.name}}</strong>
+        <span ng-if="!i.name.length">--</span>
+        <sapn>&nbsp;</sapn>
+        <span ng-if="i.remark.length" style="color: #999333;">&nbsp;//&nbsp;{{i.remark}}</span>
+      </li>
+    </ul>
+    <h6>
+      {{'DETAIL-RETURN-INTERFACE'|translate}}
+    </h6>
+
+    <div class="panel panel-default">
+      <div ng-if="!data.responseParametersType" json2html="data.responseParameters" style="overflow-y: auto;"
+           class="panel-body json-panel"></div>
+      <div ng-if="data.responseParametersType" json-format="data.responseJson" style="overflow-y: auto;"
+           class="panel-body json-panel"></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="row well well-sm"
+     style=" position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;text-align: center;margin-bottom:0;">
+  <a ng-disabled="addForm.$invalid" ng-click="used()" class="btn btn-primary">{{'APPLY'|translate}}</a>
+  <a style="margin-left: 10px;" ng-disabled="addForm.$invalid" ng-click="submit()" class="btn btn-success">{{'SUBMIT'|translate}}</a>
+  <a ui-sref="list" style="margin-left: 10px;" class="btn btn-default">{{'CANCEL'|translate}}</a>
+</div>
+
+</form>
+<div growl></div>
+

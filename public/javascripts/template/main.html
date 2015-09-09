@@ -1,0 +1,169 @@
+<div>
+  <div class="row">
+    <div class="col-md-7">
+      <div class="panel panel-info">
+        <div class="panel-heading clearfix">
+          <h6 class="panel-title pull-left">{{'MAIN-LIST-TITLE'|translate}}</h6>
+        </div>
+        <div class="panel-body">
+          <div style=" position: relative; " class="form-group has-feedback">
+            <input type="text" ng-model="jsonPath" placeholder="{{'MAIN-LIST-Filter'|translate}}" typeahead="i for i in path | filter:$viewValue" class="form-control"/>
+            <span style="top: 0; " class="glyphicon glyphicon-search form-control-feedback"></span>
+          </div>
+          <div style="border-bottom: 2px solid #eee; " class="row">
+            <div class="col-md-8">
+              <h5>PATH</h5>
+            </div>
+            <div class="col-md-2">
+              <h5>{{'MAIN-LIST-DELAY'|translate}}
+                <span tooltip="{{'MAIN-LIST-DELAY-EXPLANATION'|translate}}" style="margin-left: 2px;" class="glyphicon glyphicon-question-sign text-muted"></span>
+              </h5>
+            </div>
+            <div class="col-md-2">
+              <h5>{{'MAIN-LIST-OPERATING'|translate}}
+                <div style=" max-height: 400px; overflow-y: auto; " class="row"></div>
+              </h5>
+            </div>
+            <div class="col-md-12">
+              <div ng-repeat="i in data | filter: jsonPath " style="padding:10px 0;" class="row">
+                <div class="col-md-8">
+                  <a ng-bind="i.url|database" ui-sref="detail({url:i.urlFilter})" tooltip="{{i.note}}" tooltip-placement="right" class="text-error"></a>
+                  <span class="label label-info" ng-if="!i.isJsonp">JSON</span>
+                  <span class="label label-success" ng-if="i.isJsonp">JSONP</span>
+                </div>
+                <div class="col-md-2">
+                  <button ng-if="!i.lazyLoad" class="btn btn-default btn-xs" ng-click="changeLazy(i.url)">
+                    <span class="text-success glyphicon glyphicon-expand"></span>
+                  </button>
+                  <button ng-if="i.lazyLoad" class="btn btn-warning btn-xs"  ng-click="changeLazy(i.url)">
+                    <span class="glyphicon glyphicon-record"></span>
+                  </button>
+                </div>
+                <div class="col-md-2">
+                  <button ng-click="del(i.url)" class="btn btn-default btn-xs">
+                    <span style="cursor:pointer;" tooltip="{{'DELETE'|translate}}" class="text-danger glyphicon glyphicon-remove"></span>
+                  </button>
+                  <button ng-click="changeUrl(i.url)" class="btn btn-default btn-xs">
+                    <span style="cursor:pointer;" tooltip="{{'MAIN-LIST-CHANGE'|translate}}" class="glyphicon glyphicon-log-out"></span>
+                  </button>
+                </div>
+                <div class="col-md-12">
+                  <small class="text-muted">{{i.note}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="panel panel-info clearfix">
+        <div class="panel-heading">
+          <h6 class="panel-title">{{'MAIN-ADD-TITLE'|translate}}
+            <span tooltip-placement="bottom" tooltip="{{'MAIN-ADD-TITLE-EXPLANATION'|translate:'{interfaceSuffix:interfaceSuffix}'}}" class="glyphicon glyphicon-question-sign"></span>
+          </h6>
+        </div>
+        <div class="panel-body">
+          <form novalidate="novalidate" name="form" role="form" class="navbar-form">
+            <div class="input-group">
+              <input type="text" ng-required="true" name="url" ng-model="url" interface-suffix="{{interfaceSuffix}}" can-add="data" typeahead="i for i in path | filter:$viewValue" placeholder="{{'MAIN-ADD-EXPLANATION'|translate:'{interfaceSuffix:interfaceSuffix}'}}" class="form-control"/>
+              <span class="input-group-btn">
+                <button ng-disabled="form.$invalid" ng-click="add()" class="btn btn-default btn-success">
+                  {{'ADD'|translate}}
+                </button>
+              </span>
+            </div>
+            <p ng-if="form.url.$error.isOK" class="text-danger" style=" margin-top: 10px; ">{{'MAIN-ADD-EXPLANATION'|translate:'{interfaceSuffix:interfaceSuffix}'}}</p>
+            <p ng-if="form.url.$error.isOnly" class="text-danger" style=" margin-top: 10px; ">{{'ERROR-ALREADY-EXISTS'|translate}}</p>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel panel-info clearfix">
+        <div class="panel-heading">
+          <h6 class="panel-title">{{'MAIN-RECORD-TITLE'|translate}}
+            <span tooltip-placement="bottom" tooltip="{{'MAIN-RECORD-TITLE-EXPLANATION'|translate}} " class="glyphicon glyphicon-question-sign"></span>
+          </h6>
+        </div>
+        <div class="panel-body">
+          <form novalidate="novalidate" name="recordForm" role="recordForm" class="form-horizontal">
+            <div class="form-group">
+              <div class="input-group" style="padding: 0 15px;">
+                <div class="input-group-btn dropdown">
+                  <button ng-init="recordData.interfaceType='GET' " type="button" class="btn btn-default dropdown-toggle">{{recordData.interfaceType}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="recordData.interfaceType='POST'" href="#">POST</a></li>
+                    <li><a ng-click="recordData.interfaceType='GET'" href="#">GET</a></li>
+                  </ul>
+                </div>
+                <input type="text" ng-required="true" placeholder="{{'MAIN-RECORD-URL-EXPLANATION'|translate}}" ng-model="recordData.interfaceUrl" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <input type="text" class="form-control " ng-model="recordData.cookie" placeholder="Cookie({{'OPTIONAL'|translate}})">
+              </div>
+            </div>
+            <h6>{{'PARAMETERS'|translate}}
+              <a tooltip="{{'ADD'|translate}}" ng-click="record.addRequiredParameter()"  class="btn btn-default btn-sm btn-xs pull-right ng-scope">
+                <span class="glyphicon glyphicon-plus"></span>
+              </a>
+            </h6>
+
+            <div class="form-group" ng-repeat="i in recordData.requiredParameters">
+
+              <div class="col-sm-4">
+                <input ng-model="i.key" class="form-control" placeholder="Key" ng-required="true">
+              </div>
+              <div class="col-sm-6">
+                <input ng-model="i.value" class="form-control" placeholder="Value" ng-required="true">
+              </div>
+              <div class="col-sm-2 control-label">
+                <button class="btn btn-default btn-xs">
+                  <span ng-click="record.removeRequiredParameter()" style="cursor:pointer;"  tooltip="{{'DELETE'|translate}}" class="text-danger glyphicon glyphicon-remove ng-scope"></span>
+                </button>
+              </div>
+            </div>
+            <hr>
+            <a ng-click="record.submitRecord()" ng-disabled="recordForm.$invalid" class="btn btn-success">{{'RECORD'|translate}}</a>
+          </form>
+        </div>
+      </div>
+
+
+      <div class="panel panel-danger clearfix">
+        <div class="panel-heading">
+          <h6 class="panel-title">
+            {{'MAIN-ERROR-LOG-TITLE'|translate}}
+            <span tooltip=" {{'MAIN-ERROR-LOG-TITLE-EXPLANATION'|translate}}" style="margin-left: 2px;" class="glyphicon glyphicon-question-sign text-muted"></span>
+          </h6>
+        </div>
+        <div class="panel-body">
+          <accordion close-others="true">
+            <accordion-group ng-repeat="i in log">
+              <accordion-heading>
+                {{i.url}}
+                <a class="btn btn-default btn-xs pull-right" ui-sref="detail({url:i.urlFilter})">
+                  <span class="glyphicon glyphicon-edit text-info" ng-class="{'text-warning':i.docError.length,'text-danger':i.reqError.length}"></span>
+                </a>
+              </accordion-heading>
+
+              <p ng-if="i.methodError" class="text-info">{{i.methodError}}</p>
+
+              <div ng-if="i.reqError.length">
+                <p class="text-danger" ng-repeat="ii in i.reqError">{{ii}}</p>
+              </div>
+              <div ng-if="i.docError.length">
+                <p class="text-warning" ng-repeat="ii in i.docError">{{ii}}</p>
+              </div>
+            </accordion-group>
+          </accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div growl></div>
