@@ -25,7 +25,7 @@
               </h5>
             </div>
             <div class="col-md-12">
-              <div ng-repeat="i in data | filter: jsonPath " style="padding:10px 0;" class="row">
+              <div ng-repeat="i in data| toArray:false | filter: jsonPath " style="padding:10px 0;" class="row">
                 <div class="col-md-8">
                   <a ng-bind="i.url|database" ui-sref="detail({url:i.urlFilter})" tooltip="{{i.note}}" tooltip-placement="right" class="text-error"></a>
                   <span class="label label-info" ng-if="!i.isJsonp">JSON</span>

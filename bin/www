@@ -1,3 +1,13 @@
+var fs = require('fs');
+var path = require('path');
+global._ = require('underscore');
+
+
+
+var mock2easy = {
+  log:console.log,
+  error:console.error
+}
 
 
 var options =  {
@@ -13,9 +23,52 @@ var options =  {
 };
 
 
-require('../app')({
-  log:console.log,
-  error:console.error
-},options).listen(options.port, function() {
-  console.log('mock2easy is starting , please visit : http://localhost:');
+
+var makeDo = function(mock2easy,options){
+  var deferred = require('Q').defer();
+  require('async').parallel([
+      function(callback){
+        if(!fs.existsSync(path.resolve(options.database))) {
+          fs.mkdirSync(path.resolve(options.database));
+        }
+        fs.readFile(path.resolve('')+'/_do.tmp','utf-8',function(err,data) {
+          if (err) {
+            mock2easy.error(err);
+          } else {
+
+
+            require(path.resolve('')+'/util/writeFile')(path.resolve(options.database) + '/do.js', _.template(data)({
+              port: options.port,
+              interfaceSuffix:options.interfaceSuffix
+            }), mock2easy).then(function () {
+              callback();
+            });
+          }
+        });
+      }
+    ],
+    function(err, results){
+      deferred.resolve();
+    });
+  return deferred.promise;
+}
+
+
+
+
+makeDo(mock2easy,options).then(function(){
+  global.options = options;
+  global.language = require(path.resolve('') + '/server/translate')(mock2easy,options.preferredLanguage);
+
+  require(path.resolve('') + '/server/cleanInterface')(mock2easy).then(function(){
+    require(path.resolve('')+ '/app')(mock2easy,options).listen(options.port, function() {
+      console.log('mock2easy is starting , please visit : http://localhost:#####');
+    });
+  });
+
 });
+
+
+
+
+

@@ -123,6 +123,7 @@ module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 
               data: function () {
                 $scope.recordData.responseParameters = data.data;
                 $scope.recordData.path = $scope.path;
+
                 $scope.recordData.interfaceSuffix = $scope.interfaceSuffix;
                 return $scope.recordData;
               }

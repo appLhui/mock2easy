@@ -5,3 +5,4 @@
 module.exports = angular.module('filter', [])
     .filter('url', require('./url'))
     .filter('database',require('./database'))
+    .filter('toArray',require('./toArray'))

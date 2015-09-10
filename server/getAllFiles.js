@@ -30,15 +30,20 @@ module.exports = function(mock2easy){
         return getAllFiles(root);
     }
 
-    getAllFiles(path.resolve(global.options.database)).forEach(function(file){
+    try{
+      getAllFiles(path.resolve(global.options.database)).forEach(function(file){
         var arry = file.split(global.options.database);
         String.prototype.endWith=function(endStr){
-            var d=this.length-endStr.length;
-            return (d>=0&&this.lastIndexOf(endStr)==d)
+          var d=this.length-endStr.length;
+          return (d>=0&&this.lastIndexOf(endStr)==d)
         }
         if(arry[arry.length-1].endWith('.json')){
-            _filse.push(file);
+          _filse.push(file);
         }
-    });
+      });
+    }catch (e){
+       mock2easy.error(e);
+    }
+
     return  _filse;
 }
