@@ -8,6 +8,11 @@ module.exports = function(mock2easy,options ,ck){
   var path = require('path');
   global._ = require('underscore');
 
+  _.templateSettings = {
+    interpolate: /\{\{(.+?)\}\}/g
+  };
+
+
   var makeDo = function(mock2easy,options){
     var deferred = require('Q').defer();
     require('async').parallel([
@@ -22,9 +27,9 @@ module.exports = function(mock2easy,options ,ck){
               mock2easy.error(err);
             } else {
 
-              require('./util/writeFile')(path.resolve(options.database) + '/do.js', _.template(data)({
+              require('./util/writeFile')(path.resolve(options.database) + '/do.js',_.template(data)({
                 port: options.port,
-                interfaceSuffix:options.interfaceSuffix
+                interfaceSuffix: options.interfaceSuffix
               }), mock2easy).then(function () {
                 callback();
               });
