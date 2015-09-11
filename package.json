@@ -1,6 +1,6 @@
 {
   "name": "mock2easy",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "main": "./start.js",
   "scripts": {
     "watch": "watchify -t brfs public/javascripts/app.js -o public/build/bundle.js -v",
@@ -26,7 +26,8 @@
     "q": "^1.4.1",
     "static-favicon": "~1.0.0",
     "underscore": "^1.8.3",
-    "watchify": "^3.4.0"
+    "watchify": "^3.4.0",
+    "mockjs": "^0.1.10"
   },
   "devDependencies": {
     "angular": "^1.4.5",
@@ -36,8 +37,8 @@
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
     "jquery": "^2.1.4",
-    "json2": "^0.4.0",
-    "mockjs": "^0.1.10"
+    "json2": "^0.4.0"
+
   },
   "readme": "# mock2easy\n",
   "readmeFilename": "README.md",
