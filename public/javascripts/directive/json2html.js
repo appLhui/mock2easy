@@ -2,7 +2,7 @@
  * Created by lihui on 14-7-31.
  */
 
-require('mockjs');
+var Mock = require('mockjs');
 var $ = require('jquery');
 module.exports = function() {
 

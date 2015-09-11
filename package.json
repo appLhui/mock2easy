@@ -1,7 +1,7 @@
 {
   "name": "mock2easy",
   "version": "0.0.1",
-  "private": true,
+  "main": "./start.js",
   "scripts": {
     "watch": "watchify -t brfs public/javascripts/app.js -o public/build/bundle.js -v",
     "build": "browserify -t brfs  public/javascripts/app.js -o public/build/bundle.js",
@@ -31,5 +31,11 @@
     "bootstrap": "^3.3.5",
     "json2": "^0.4.0",
     "mockjs": "^0.1.10"
-  }
+  },
+  "readme": "# mock2easy\n",
+  "readmeFilename": "README.md",
+  "description": "",
+  "_id": "mock2easy@0.0.1",
+  "_shasum": "2e0a3c040a8888b1bbd22d5e9ddd64ea8cd0982b",
+  "_from": "mock2easy@"
 }

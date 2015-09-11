@@ -21,6 +21,7 @@ module.exports = function(mock2easy,options) {
   app.use(bodyParser.urlencoded());
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
+
   app.get('./build/bundle.js', browserify(path.join(__dirname, 'public')+'/javascripts/app.js'));
 
   app.use('/', require('./routes/index')(mock2easy));

@@ -10,7 +10,7 @@
  * Created by lihui on 14-7-31.
  */
 
-require('../util/mock');
+
 var $ = require('jquery');
 module.exports = function () {
 
