@@ -1,6 +1,6 @@
 {
   "name": "mock2easy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./start.js",
   "scripts": {
     "watch": "watchify -t brfs public/javascripts/app.js -o public/build/bundle.js -v",
@@ -9,17 +9,23 @@
     "start": "npm run watch & nodemon ./bin/www"
   },
   "dependencies": {
+    "async": "^1.4.2",
     "body-parser": "~1.0.0",
     "brfs": "^1.4.1",
     "browserify-middleware": "^7.0.0",
+    "colors": "^1.1.2",
     "cookie-parser": "~1.0.1",
     "debug": "~0.7.4",
     "express": "~4.2.0",
     "insert-css": "^0.2.0",
     "jade": "~1.3.0",
+    "mkdirp": "^0.5.1",
     "morgan": "~1.0.0",
+    "node.extend": "^1.1.5",
     "nodemon": "^1.4.1",
+    "q": "^1.4.1",
     "static-favicon": "~1.0.0",
+    "underscore": "^1.8.3",
     "watchify": "^3.4.0"
   },
   "devDependencies": {
@@ -29,6 +35,7 @@
     "angular-ui-bootstrap": "^0.13.4",
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
+    "jquery": "^2.1.4",
     "json2": "^0.4.0",
     "mockjs": "^0.1.10"
   },

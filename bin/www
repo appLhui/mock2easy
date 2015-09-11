@@ -19,7 +19,7 @@ var options =  {
   isSpider:false,
   ignoreField:[],
   interfaceSuffix:'.json',
-  preferredLanguage:'cn'
+  preferredLanguage:'en'
 };
 
 
