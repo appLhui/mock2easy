@@ -55,6 +55,15 @@ module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 
           });
         });
     },
+    checkGitBook:function(){
+      $http.post('/gitbook').then(function (data) {
+        if(data.data.code == 200){
+
+        }else{
+          growl.addErrorMessage(window.language['GITBOOK-UNINSTALL']);
+        }
+      });
+    },
     changeLazy: function (url) {
 
       $http.post('/changeLazy', {

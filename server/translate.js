@@ -61,7 +61,8 @@ module.exports = function (mock2easy, preferredLanguage) {
       'SERVER-ERROR-PARAMETER-1': 'Request parameters［{{parameters}}］are required',
       'SERVER-ERROR-PARAMETER-2': 'Missing definition in the ducoment for［{{parameters}}］as request parameters',
       'SERVER-WARN': ' Interface warning',
-      'SERVER-WARN-TEXT': 'Request type error, please verify '
+      'SERVER-WARN-TEXT': 'Request type error, please verify ',
+      'GITBOOK-UNINSTALL': 'Sorry,please install gitbook frist!'
     },
     'cn': {
       'DELETE': '删除',
@@ -119,7 +120,8 @@ module.exports = function (mock2easy, preferredLanguage) {
       'SERVER-ERROR-PARAMETER-1': '请求参数［{{parameters}}］应该为必填项',
       'SERVER-ERROR-PARAMETER-2': '接口文档缺少［{{parameters}}］做为请求参数',
       'SERVER-WARN': '接口警告',
-      'SERVER-WARN-TEXT': '请求类型异常请确认'
+      'SERVER-WARN-TEXT': '请求类型异常请确认',
+      'GITBOOK-UNINSTALL': '请先安装gitbook！'
     }
   }
 

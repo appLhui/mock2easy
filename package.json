@@ -1,6 +1,6 @@
 {
   "name": "mock2easy",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./start.js",
   "scripts": {
     "watch": "watchify -t brfs public/javascripts/app.js -o public/build/bundle.js -v",
@@ -40,7 +40,6 @@
     "json2": "^0.4.0"
 
   },
-  "readme": "# mock2easy\n",
   "readmeFilename": "README.md",
   "description": "",
   "_id": "mock2easy@0.0.1",

@@ -40,7 +40,6 @@ module.exports = function(mock2easy,options ,ck){
             fs.mkdirSync(path.resolve(options.database));
           }
 
-
           fs.readFile(__dirname + '/_do.tmp','utf-8',function(err,data) {
             if (err) {
               mock2easy.error(err);

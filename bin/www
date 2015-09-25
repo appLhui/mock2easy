@@ -10,9 +10,9 @@
     preferredLanguage: 'en'
   };
 
-  require('../start')({},options, function (app) {
+  require('../start')(options, function (app) {
     try {
-      app.listen(8888, function () {
+      app.listen(options.port, function () {
         console.log(('mock2easy is starting , please visit : http://localhost:' + options.port).bold.cyan);
       });
     } catch (e) {

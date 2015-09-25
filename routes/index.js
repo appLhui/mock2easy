@@ -137,6 +137,19 @@ module.exports = function (mock2easy) {
 
   });
 
+  router.post('/gitbook', function (req, res) {
+    require('../server/gitbook/checkInstall')(mock2easy,function(error,stdout){
+       if(!error && stdout){
+         require('../server/gitbook/init')(mock2easy,function(){
+           res.json(200);
+         });
+       }else{
+         res.json(200, {code:500});
+       }
+    });
+
+
+  });
 
   return router;
 }
