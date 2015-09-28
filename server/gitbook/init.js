@@ -31,7 +31,18 @@ module.exports = function (mock2easy, callback) {
       initMd('README',data,ck);
     }, function (ck) {
       initMd('SUMMARY',data,ck);
-    }],callback);
+    },function(ck){
+
+      require('child_process').exec('gitbook build '+ path.resolve(options.doc),function(error, stdout, stderr){
+        if(error){
+          return ck(error);
+        }
+        var open = require("open");
+        open('file://'+path.resolve(options.doc)+'/_book/index.html');
+        ck(null,stdout);
+      });
+    }
+    ],callback);
 
   });
 

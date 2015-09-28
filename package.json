@@ -6,7 +6,7 @@
     "watch": "watchify -t brfs public/javascripts/app.js -o public/build/bundle.js -v",
     "build": "browserify -t brfs  public/javascripts/app.js -o public/build/bundle.js",
     "util": "browserify -t brfs  public/javascripts/util.js -o public/build/util.js",
-    "start": "npm run watch & nodemon ./bin/www"
+    "start": "npm run watch --ignore-watch='./doc/**' & nodemon ./bin/www"
   },
   "dependencies": {
     "async": "^1.4.2",
@@ -27,7 +27,8 @@
     "static-favicon": "~1.0.0",
     "underscore": "^1.8.3",
     "watchify": "^3.4.0",
-    "mockjs": "^0.1.10"
+    "mockjs": "^0.1.10",
+    "open": "0.0.5"
   },
   "devDependencies": {
     "angular": "^1.4.5",
@@ -38,7 +39,6 @@
     "bootstrap": "^3.3.5",
     "jquery": "^2.1.4",
     "json2": "^0.4.0"
-
   },
   "readmeFilename": "README.md",
   "description": "",
