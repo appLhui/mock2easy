@@ -40,7 +40,6 @@ module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 
       });
     },
     del: function (url) {
-
       $confirm({
         text: window.language['MAIN-DELETE-CONTENT'],
         title:window.language.DELETE,
@@ -58,9 +57,11 @@ module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 
     checkGitBook:function(){
       $http.post('/gitbook').then(function (data) {
         if(data.data.code == 200){
-
+          growl.addSuccessMessage(window.language['SUCCESS']);
         }else{
-          growl.addErrorMessage(window.language['GITBOOK-UNINSTALL']);
+          $modal.open({
+            template: '<div class="modal-header"><h3>'+window.language['GITBOOK-UNINSTALL']+'</h3></div> <div class="modal-body">'+window.language['GITBOOK-UNINSTALL-CONTENT']+'</div>'
+          });
         }
       });
     },

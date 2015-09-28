@@ -62,7 +62,9 @@ module.exports = function (mock2easy, preferredLanguage) {
       'SERVER-ERROR-PARAMETER-2': 'Missing definition in the ducoment for［{{parameters}}］as request parameters',
       'SERVER-WARN': ' Interface warning',
       'SERVER-WARN-TEXT': 'Request type error, please verify ',
-      'GITBOOK-UNINSTALL': 'Sorry,please install gitbook frist!'
+      'GITBOOK-UNINSTALL': 'You have not installed Gitbook',
+      'GITBOOK-UNINSTALL-CONTENT': 'GitBook can be installed from NPM using:<code>$ npm install gitbook-cli -g</code>'
+
     },
     'cn': {
       'DELETE': '删除',
@@ -121,7 +123,8 @@ module.exports = function (mock2easy, preferredLanguage) {
       'SERVER-ERROR-PARAMETER-2': '接口文档缺少［{{parameters}}］做为请求参数',
       'SERVER-WARN': '接口警告',
       'SERVER-WARN-TEXT': '请求类型异常请确认',
-      'GITBOOK-UNINSTALL': '请先安装gitbook！'
+      'GITBOOK-UNINSTALL': '没有安装Gitbook',
+      'GITBOOK-UNINSTALL-CONTENT': '你可以用:<code>$ npm install gitbook-cli -g</code>命令安装Gitbook'
     }
   }
 

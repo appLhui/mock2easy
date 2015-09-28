@@ -37,8 +37,7 @@ module.exports = function (mock2easy, callback) {
         if(error){
           return ck(error);
         }
-        var open = require("open");
-        open('file://'+path.resolve(options.doc)+'/_book/index.html');
+        require("open")('file://'+path.resolve(options.doc)+'/_book/index.html');
         ck(null,stdout);
       });
     }
