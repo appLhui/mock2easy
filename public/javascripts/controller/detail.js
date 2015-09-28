@@ -11,8 +11,7 @@ module.exports = ['$scope','$stateParams','$http','$filter','$modal','json2Data'
     data:{
       interfaceType:'GET',
       requiredParameters:[],
-      responseParameters:[],
-
+      responseParameters:[]
     },
     render:function(){
       $http.post('/load',{url:$stateParams.url}).then(function(data){
@@ -103,9 +102,6 @@ module.exports = ['$scope','$stateParams','$http','$filter','$modal','json2Data'
         template: fs.readFileSync(__dirname.replace('controller','') + 'template/modal/importJson.html'),
         controller: ['$scope','$modalInstance',function($scope,$modalInstance){
           $scope.importResponseParameters = function(json){
-            json = json.replace(/"(?:.|\s)*?":/g, function (m) {
-              return m.replace(/\|/g,'^');
-            });
             $modalInstance.close(json);
           }
         }]

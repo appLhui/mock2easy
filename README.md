@@ -1,6 +1,16 @@
 # mock2easy
 
-mock2easy 是一款兼mock数据、接口自动化测试、接口地址重定向多功能于一身的工具，暂时提供 grunt、gulp 和 webpack 平台。
+##什么是mock2easy？
+
+1. 结合[Mockjs](http://mockjs.com/)使静态的接口活起来
+
+2. 接口自动化测试
+
+3. 接口地址重定向多功能于一身的工具
+
+4. 结合Gitbook整理专业接口文档
+
+5. 支持多平台暂时提供 grunt、gulp 和 webpack 平台。
 
 尝试一下一定会帮你解决很大问题～
 

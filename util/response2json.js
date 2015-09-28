@@ -82,7 +82,7 @@ module.exports = function(hashObj,mock2easy,is2Web){
             }else{
                 return key;
             }
-        }).replace(/\^/g,'|'));
+        }));
 
         return json;
     }catch (e){

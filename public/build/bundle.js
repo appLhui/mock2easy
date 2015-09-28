@@ -12658,8 +12658,7 @@ module.exports = ['$scope','$stateParams','$http','$filter','$modal','json2Data'
     data:{
       interfaceType:'GET',
       requiredParameters:[],
-      responseParameters:[],
-
+      responseParameters:[]
     },
     render:function(){
       $http.post('/load',{url:$stateParams.url}).then(function(data){
@@ -12750,9 +12749,6 @@ module.exports = ['$scope','$stateParams','$http','$filter','$modal','json2Data'
         template: Buffer("PGZvcm0gbmFtZT0iaW1wb3J0IiByb2xlPSJmb3JtIiBub3ZhbGlkYXRlPSJub3ZhbGlkYXRlIj4KICAgIDxkaXYgY2xhc3M9Im1vZGFsLWhlYWRlciI+CiAgICAgICAgPGg1Pnt7J0RFVEFJTC1JTVBPUlQtVElUTEUnfHRyYW5zbGF0ZX19PC9oNT4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0ibW9kYWwtYm9keSI+CiAgICAgICAgPHRleHRhcmVhIG5hbWU9Impzb24iIGpzb24tdmVyaWZ5IG5nLXJlcXVpcmVkPSJ0cnVlIiBuZy1tb2RlbD0ianNvbiIgcGxhY2Vob2xkZXI9Int7J0RFVEFJTC1JTVBPUlQtSU5QVVQnfHRyYW5zbGF0ZX19IiBzdHlsZT0iaGVpZ2h0OiAzNTBweDsiIGNsYXNzPSJmb3JtLWNvbnRyb2wiPjwvdGV4dGFyZWE+CiAgICA8L2Rpdj4KICAgIDxwIG5nLWlmPSJpbXBvcnQuanNvbi4kZXJyb3IuanNvbiIgY2xhc3M9InRleHQtZGFuZ2VyIiBzdHlsZT0iIG1hcmdpbi1sZWZ0OiAxOHB4OyAiPnt7J0RFVEFJTC1JTVBPUlQtRVJST1InfHRyYW5zbGF0ZX19PC9wPgogICAgPGRpdiBjbGFzcz0ibW9kYWwtZm9vdGVyIj4KICAgICAgICA8YnV0dG9uIG5nLWNsaWNrPSJpbXBvcnRSZXNwb25zZVBhcmFtZXRlcnMoanNvbikiIG5nLWRpc2FibGVkPSJpbXBvcnQuJGludmFsaWQiIGNsYXNzPSJidG4gYnRuLXByaW1hcnkiPnt7J1NVQk1JVCd8dHJhbnNsYXRlfX08L2J1dHRvbj4KICAgIDwvZGl2Pgo8L2Zvcm0+","base64"),
         controller: ['$scope','$modalInstance',function($scope,$modalInstance){
           $scope.importResponseParameters = function(json){
-            json = json.replace(/"(?:.|\s)*?":/g, function (m) {
-              return m.replace(/\|/g,'^');
-            });
             $modalInstance.close(json);
           }
         }]
@@ -13555,7 +13551,7 @@ module.exports = function() {
                     angular.forEach(to,function(o,i){
                         hashObj[o.id] = o;
                     });
-                    $el.html(syntaxHighlight(Mock.mock(response2json(hashObj))).replace(/\^/g,'|'));
+                    $el.html(syntaxHighlight(Mock.mock(response2json(hashObj))));
                     angular.forEach($("[remark]"),function(o){
                         var _e = $(o);
                         var _brs = _e.nextAll('br');

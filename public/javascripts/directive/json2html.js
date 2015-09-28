@@ -157,7 +157,7 @@ module.exports = function() {
                     angular.forEach(to,function(o,i){
                         hashObj[o.id] = o;
                     });
-                    $el.html(syntaxHighlight(Mock.mock(response2json(hashObj))).replace(/\^/g,'|'));
+                    $el.html(syntaxHighlight(Mock.mock(response2json(hashObj))));
                     angular.forEach($("[remark]"),function(o){
                         var _e = $(o);
                         var _brs = _e.nextAll('br');
