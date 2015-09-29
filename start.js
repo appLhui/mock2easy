@@ -24,6 +24,20 @@ module.exports = function(mock2easy,options ,ck){
       log: console.log,
       error: console.error
     }
+  }else if(arguments.length == 3){
+    options = _.extend({
+      port:3000,
+      lazyLoadTime:3000,
+      database:'mock2easy',
+      doc:'doc',
+      keepAlive:true,
+      isSpider:false,
+      ignoreField:[],
+      interfaceSuffix:'.json',
+      preferredLanguage:'en'
+    },options);
+  }else{
+     console.error('arguments error');
   }
 
 
