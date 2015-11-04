@@ -6,7 +6,7 @@
 module.exports = function(mock2easy,body) {
   var path = require('path');
   var fs = require('fs');
-  var deferred = require('Q').defer();
+  var deferred = require('q').defer();
 
   var _arry = body.interfaceUrl.split('\/');
   delete _arry[_arry.length-1];

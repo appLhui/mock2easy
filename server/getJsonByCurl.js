@@ -24,8 +24,8 @@ module.exports = function(mock2easy,callback,domain,url,query,cookie){
     var sh = ['curl',' ',
       domain,
       url,' ',
-        '--data "'+obj2StrParams(query)+'" ',
-      cookie ? "-H 'Cookie: ":'',cookie,cookie ?"; '":''
+      '--data "'+obj2StrParams(query)+'" ',
+      cookie ? "-H \"Cookie: ":'',cookie,cookie ?"; \"":''
     ];
     sh = sh.join('');
     mock2easy.log();
@@ -38,6 +38,7 @@ module.exports = function(mock2easy,callback,domain,url,query,cookie){
       }
       callback(null,stdout);
     });
+
   } catch(error){
     callback(error);
   }

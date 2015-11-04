@@ -11,7 +11,7 @@
 
 module.exports = function(url,doc,mock2easy){
     var fs = require('fs');
-    var deferred = require('Q').defer();
+    var deferred = require('q').defer();
     fs.open(url,"w",0644,function(err,fd){
         if(err){
           mock2easy.error(err);

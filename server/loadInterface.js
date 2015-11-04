@@ -11,7 +11,7 @@ var fs = require('fs');
 
 module.exports = function(mock2easy,files){
 
-    var deferred = require('Q').defer();
+    var deferred = require('q').defer();
 
     async.reduce(files,{data:[],log:[],path:[]}, function(result, file, callback){
 

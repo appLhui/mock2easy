@@ -7,7 +7,7 @@
 
 module.exports = function(url,doc,mock2easy){
     var fs = require('fs');
-    var deferred = require('Q').defer();
+    var deferred = require('q').defer();
     var mkdirp = require('mkdirp');
 
     var _urlArray = url.split('\/');

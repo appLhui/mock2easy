@@ -6,7 +6,7 @@
 
 
 module.exports = function(mock2easy){
-  var deferred = require('Q').defer();
+  var deferred = require('q').defer();
   var fs = require('fs');
   var path = require('path');
 

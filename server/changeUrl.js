@@ -7,7 +7,7 @@ module.exports = function(mock2easy,req){
 
     var path = require('path');
     var fs = require('fs');
-    var deferred = require('Q').defer();
+    var deferred = require('q').defer();
     var _json = {};
 
     var _url = req.url.replace(global.options.interfaceSuffix,'.json');

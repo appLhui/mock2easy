@@ -47,7 +47,7 @@ module.exports = function(mock2easy,options ,ck){
 
 
   var makeDo = function(mock2easy,options){
-    var deferred = require('Q').defer();
+    var deferred = require('q').defer();
     require('async').parallel([
         function(callback){
           if(!fs.existsSync(path.resolve(options.database))) {

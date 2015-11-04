@@ -7,7 +7,7 @@ module.exports = function(mock2easy,body){
     var path = require('path');
     var fs = require('fs');
     var Mock = require('mockjs');
-    var deferred = require('Q').defer();
+    var deferred = require('q').defer();
     var _reqStr = '';
 
     var createFile = require('../util/createFile');

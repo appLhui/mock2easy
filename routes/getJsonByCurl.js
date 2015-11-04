@@ -20,7 +20,7 @@ module.exports = function (mock2easy) {
   }
 
   return function (req, res, next) {
-    require('../server/getJsonByCurl')(grunt, function (error, stdout) {
+    require('../server/getJsonByCurl')(mock2easy, function (error, stdout) {
       if (error) {
         return req.json(500, err);
       }
