@@ -50,6 +50,10 @@ module.exports = function(mock2easy,options ,ck){
     var deferred = require('q').defer();
     require('async').parallel([
         function(callback){
+          if(!fs.existsSync(path.resolve(options.doc))) {
+            fs.mkdirSync(path.resolve(options.doc));
+          }
+
           if(!fs.existsSync(path.resolve(options.database))) {
             fs.mkdirSync(path.resolve(options.database));
           }

@@ -27,7 +27,15 @@ function getBody(request, response, callback) {
 
 
 module.exports = function (req, res, next) {
-  if( req.url.indexOf("{{interfaceSuffix}}") == -1) return next();
+
+  if(typeof req.url != 'string') return next();
+
+  if(req.url.indexOf('?') ==-1){
+    if(!req.url.endsWith("{{interfaceSuffix}}")) return next();
+  }else{
+    var _url = req.url.split('?')[0];
+    if(!_url.endsWith("{{interfaceSuffix}}")) return next();
+  }
 
   getBody(req, res, function (err, body) {
     if (err) {
