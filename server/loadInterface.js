@@ -44,7 +44,10 @@ module.exports = function(mock2easy,files){
                            });
 
                            if(_json.methodError || _json.reqError.length || _json.docError.length){
-                             var _logObj = {url:_json.interfaceUrl};
+                             var _logObj = {
+                               url: _json.interfaceUrl,
+                               mtime: Date.parse(fs.statSync(file).mtime)
+                             };
                              if(_json.methodError){
                                _logObj.methodError = _json.methodError;
                              }

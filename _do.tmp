@@ -22,7 +22,13 @@ function getBody(request, response, callback) {
   } else {
     callback(null);
   }
+}
 
+var endsWith = function(str,suffix){
+   if(str.indexOf(suffix) == -1){
+   return false;
+   }
+   return str.length == str.indexOf(suffix) + suffix.length;
 }
 
 
@@ -31,10 +37,10 @@ module.exports = function (req, res, next) {
   if(typeof req.url != 'string') return next();
 
   if(req.url.indexOf('?') ==-1){
-    if(!req.url.endsWith("{{interfaceSuffix}}")) return next();
+    if(!endsWith(req.url,"{{interfaceSuffix}}")) return next();
   }else{
     var _url = req.url.split('?')[0];
-    if(!_url.endsWith("{{interfaceSuffix}}")) return next();
+    if(!endsWith(_url,"{{interfaceSuffix}}")) return next();
   }
 
   getBody(req, res, function (err, body) {

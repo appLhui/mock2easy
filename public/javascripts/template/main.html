@@ -30,7 +30,7 @@
             <div class="col-md-12">
               <div ng-repeat="i in data| toArray:false | filter: jsonPath " style="padding:10px 0;" class="row">
                 <div class="col-md-8">
-                  <a ng-bind="i.url|database" ui-sref="detail({url:i.urlFilter})" tooltip="{{i.note}}" tooltip-placement="right" class="text-error"></a>
+                  <a ng-bind="i.url|database" ui-sref="detail({url:i.urlFilter})" class="text-error"></a>
                   <span class="label label-info" ng-if="!i.isJsonp">JSON</span>
                   <span class="label label-success" ng-if="i.isJsonp">JSONP</span>
                 </div>
@@ -146,7 +146,7 @@
         </div>
         <div class="panel-body">
           <accordion close-others="true">
-            <accordion-group ng-repeat="i in log">
+            <accordion-group ng-repeat="i in log | orderBy: '-mtime'">
               <accordion-heading>
                 {{i.url}}
                 <a class="btn btn-default btn-xs pull-right" ui-sref="detail({url:i.urlFilter})">

@@ -27,9 +27,9 @@ module.exports = function(mock2easy,options) {
   app.use('/', require('./routes/index')(mock2easy));
 
   if(!!options.curl){
-    app.use('/**/*'+options.interfaceSuffix,require('./routes/getJsonByCurl')(mock2easy));
+    app.use('/*'+options.interfaceSuffix,require('./routes/getJsonByCurl')(mock2easy));
   }else{
-    app.use('/**/*'+options.interfaceSuffix,require('./routes/getJson')(mock2easy,options.ignoreField));
+    app.use('/*'+options.interfaceSuffix,require('./routes/getJson')(mock2easy,options.ignoreField));
   }
 
 
