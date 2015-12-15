@@ -7,7 +7,16 @@
     isSpider: false,
     ignoreField: [],
     interfaceSuffix: '.json',
-    preferredLanguage: 'en'
+    preferredLanguage: 'en',
+    postman:{
+      protocol:'https',
+      hostname:'expense.console.aliyun.test',
+      port: 443,
+      cookie:'l=AiQkl5I8dv-vIgzb7jW1sIrUdCwXw0in; login_aliyunid="tes****@aliyun.com"; login_aliyunid_ticket=yKFeuf0vpmV*s*CT58JlM_1t$w3V1$fONgAob0ZUxr_P5D2ayWS_LJj8jU8TN8bf0mX94_QCpof_BNTwUhTOoNC1ZBeeMfKJzxdnb95hYssNIZor6q7SCxRtgmGCbifG2Cd4ZWazmBdHI6sgXZqg4XQW0; login_aliyunid_csrf=_csrf_tk_1558648348268379; login_aliyunid_pk=1655928604919847; hssid=1MBC9x_Ly91NhZK0qQCwA7Q1; hsite=6; aliyun_country=CN; aliyun_lang=zh; EXPENSE_JSESSIONID=7G666881-HHO5YWITV35IP5182R9M1-Q3X51DHI-1; aliyun_console_langs0=eNrzYI3PScxL56jKsAoNcdO1iAIALp8FIQ%3D%3D; _expense_session0=R0gDybZg23%2Fl46Y6iPgSV41JGlgkwX09tDhPRmwytRE9a%2FrIzylHEznMMggmP7FNQ9%2FSb20hSJZk%2Fy9c0g9AtVCvsHPg11dT2uItb7rzekQqVgrznNSd7JKOsVbG0XodgKB5eJcPUN7N%2F9md85InZ5Ajof8G4DKIycOysj3D3N9W2fEFSBguIL2BZbn5se1U9vxAXnz10tEgwktbAfKe1Sac9KjNXV3TyV73VEigVn5kNLlbjOgYB5XTeyZoeUiTS4aUpPlKZzlMPqLoIYXSOY1VkpLwRvQ0CCNngGUUKtuZL8YeN%2Bi3JrscL8A8capvxk1SrXl2xWn4Y%2FQZegradICo5bHzYGSjJiPgC%2F3pc%2FBj0nIR%2FKHI%2FJtrYtCr1CJfN08XUX0V8wFGzfCzHhXt4tRLH8IQF5Mjlv%2Bmat0C86seBqOeSnY%2BtK0aNz7bP6rmv5kzsM5k8F5%2BsHNZmzRntRj6BFSfUyabA%2B0uQt78Yhh5veTWBfrmW%2Faqg41wzcbiiqfzS7WrsOtjRAGkrFk3%2BVdFcNdFU9r%2BUGPAohMgmdp8UI%2FT6VkII04ZxoBBm9e5epv0x0X%2BbzUKrXn2zC6j0hv8oEYUPGM8uD2iOlpIMK9myYfy7qoJ%2Fgxj4jponxduoMwEBPy%2FbVgV7s14GgHlw%2FLCNzeuXKvlz5bvAOCVIVELBh5WKpdSpY%2Fly1UT76U6uHkuPwLeD7RDBViLYY9KAKfIBaCv45RSIHsGWgRR58i8c55UPHpu4n20ZaE4LM7O8vZVJrfcKWCTmy9n7XusiQeyHr0hmovV6kji8MJEcbE%3D',
+      parameter: {
+        secToken: '3lP3aa816pOBUe354E1B2D'
+      },
+    }
   };
 
   require('../start')(options, function (app) {

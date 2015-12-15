@@ -4,8 +4,6 @@
 
 var child_process = require('child_process');
 
-var colors = require('colors');
-
 
 var obj2StrParams = function(obj){
   var param = [];

@@ -28,6 +28,8 @@ module.exports = function(mock2easy,options) {
 
   if(!!options.curl){
     app.use('/*'+options.interfaceSuffix,require('./routes/getJsonByCurl')(mock2easy));
+  }else if(!!options.postman){
+    app.use('/*'+options.interfaceSuffix,require('./routes/getJsonByPostman')(mock2easy));
   }else{
     app.use('/*'+options.interfaceSuffix,require('./routes/getJson')(mock2easy,options.ignoreField));
   }
