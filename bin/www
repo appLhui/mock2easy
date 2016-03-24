@@ -7,7 +7,7 @@
     isSpider: false,
     ignoreField: [],
     interfaceSuffix: '.json',
-    preferredLanguage: 'en',
+    preferredLanguage: 'cn',
     postman:{
       protocol:'https',
       hostname:'expense.console.aliyun.test',

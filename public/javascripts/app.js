@@ -1,4 +1,3 @@
-
 require('./filter/filter');
 require('./directive/directive');
 require('./service/service');

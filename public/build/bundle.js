@@ -12622,7 +12622,6 @@ module.exports = isArray || function (val) {
 };
 
 },{}],7:[function(require,module,exports){
-
 require('./filter/filter');
 require('./directive/directive');
 require('./service/service');
@@ -12643,7 +12642,7 @@ app.config(['$translateProvider','growlProvider', function ($translateProvider,g
 }]);
 
 angular.bootstrap(document, ['app']);
-},{"./directive/directive":15,"./filter/filter":24,"./routes":27,"./service/service":29}],8:[function(require,module,exports){
+},{"./directive/directive":15,"./filter/filter":25,"./routes":28,"./service/service":30}],8:[function(require,module,exports){
 (function (Buffer){
 /**
  * Created by lihui on 14-7-31.
@@ -12652,103 +12651,110 @@ angular.bootstrap(document, ['app']);
 var $ = require('jquery');
 
 
-module.exports = ['$scope','$stateParams','$http','$filter','$modal','json2Data','growl',function($scope,$stateParams,$http,$filter,$modal,json2Data,growl) {
+module.exports = ['$scope', '$stateParams', '$http', '$filter', '$modal', 'json2Data', 'growl', function ($scope, $stateParams, $http, $filter, $modal, json2Data, growl) {
 
-  angular.extend($scope,{
-    data:{
-      interfaceType:'GET',
-      requiredParameters:[],
-      responseParameters:[]
+  angular.extend($scope, {
+    data: {
+      interfaceType: 'GET',
+      requiredParameters: [],
+      responseParameters: []
     },
-    render:function(){
-      $http.post('/load',{url:$stateParams.url}).then(function(data){
-        data.data.lazyLoad = !!data.data.lazyLoad && data.data.lazyLoad == 'yes'?'yes':'no';
-        angular.extend($scope,{data:data.data});
+    render: function () {
+      $http.post('/load', {url: $stateParams.url}).then(function (data) {
+        data.data.lazyLoad = !!data.data.lazyLoad && data.data.lazyLoad == 'yes' ? 'yes' : 'no';
+        angular.extend($scope, {data: data.data});
 //        $scope.data.responseParametersType = true;
       });
 
     },
-    addRequiredParameters:function(){
+    addRequiredParameters: function () {
       $scope.data.requiredParameters.push({
-        name:'',
-        required:true,
-        remark:'',
-        nameVerify:'name_'+Date.parse(new Date()),
-        ruleVerify:'rule_'+Date.parse(new Date())
+        name: '',
+        required: true,
+        remark: '',
+        nameVerify: 'name_' + Date.parse(new Date()),
+        ruleVerify: 'rule_' + Date.parse(new Date())
       });
     },
-    removeRequiredParameters:function(i){
-      $scope.data.requiredParameters.splice(i,1);
+    removeRequiredParameters: function (i) {
+      $scope.data.requiredParameters.splice(i, 1);
     },
-    addResponseParameters:function(id){
-      var _id = id+'00';
+    addResponseParameters: function (id) {
+      var _id = id + '00';
       var _length = _id.length;
-      if($scope.data && $scope.data.responseParameters){
-        angular.forEach($scope.data.responseParameters,function(o,i){
-          if(o.id.length === _id.length && id == o.id.substr(0, o.id.length-2)){
-            if(parseInt(_id) < parseInt(o.id)){
+      if ($scope.data && $scope.data.responseParameters) {
+        angular.forEach($scope.data.responseParameters, function (o, i) {
+          if (o.id.length === _id.length && id == o.id.substr(0, o.id.length - 2)) {
+            if (parseInt(_id) < parseInt(o.id)) {
               _id = o.id;
             }
           }
         });
 
 
-        _id = parseInt(_id)+1;
-        _id = (''+_id).length%2==0?''+_id:'0'+_id;
+        _id = parseInt(_id) + 1;
+        _id = ('' + _id).length % 2 == 0 ? '' + _id : '0' + _id;
 
         var _array = [];
         var _i = 2;
-        while(_id.length-_i > 0){
-          angular.forEach($scope.data.responseParameters,function(o,i){
-            if(_id.substr(0,_id.length-_i) == o.id && o.kind == 'array(object)'){
+        while (_id.length - _i > 0) {
+          angular.forEach($scope.data.responseParameters, function (o, i) {
+            if (_id.substr(0, _id.length - _i) == o.id && o.kind == 'array(object)') {
               _array.push(o.id);
             }
           });
-          _i+=2;
+          _i += 2;
         }
-      }else{
+      } else {
         $scope.data.responseParameters = [];
       }
 
 
-      id =  id == '00'?'00'+_id:_id;
+      id = id == '00' ? '00' + _id : _id;
 
-      while(id.length < _length){
-        id = '0'+ id;
+      while (id.length < _length) {
+        id = '0' + id;
       }
 
       $scope.data.responseParameters.push({
         id: id,
-        kind:'string',
-        name:'--',
-        rule:'--',
-        array:_array,
-        nameVerify:'name_'+Date.parse(new Date()),
-        ruleVerify:'rule_'+Date.parse(new Date())
+        kind: 'string',
+        name: '--',
+        rule: '--',
+        array: _array,
+        nameVerify: 'name_' + Date.parse(new Date()),
+        ruleVerify: 'rule_' + Date.parse(new Date())
       });
     },
-    removeResponseParameters:function(i){
-      $scope.data.responseParameters = $filter('orderBy')($scope.data.responseParameters,'id');
-      $scope.data.responseParameters.splice(i,1);
+    removeResponseParameters: function (i) {
+      $scope.data.responseParameters = $filter('orderBy')($scope.data.responseParameters, 'id');
+      $scope.data.responseParameters.splice(i, 1);
     },
-    submit:function(){
+    submit: function () {
       $('[json2html]').html();
-      $http.post('/modify',angular.fromJson($scope.data)).then(function(){
+      $http.post('/modify', angular.fromJson($scope.data)).then(function () {
         window.location.href = '/';
       });
     },
-    used:function(){
+    used: function () {
       $('[json2html]').html();
-      $http.post('/modify',angular.fromJson($scope.data)).then(function(){
+      $http.post('/modify', angular.fromJson($scope.data)).then(function () {
         growl.addSuccessMessage(window.language.SUCCESS);
       });
     },
     //打开窗口
-    openWin:function(){
+    openWin: function () {
       var modalInstance = $modal.open({
-        template: Buffer("PGZvcm0gbmFtZT0iaW1wb3J0IiByb2xlPSJmb3JtIiBub3ZhbGlkYXRlPSJub3ZhbGlkYXRlIj4KICAgIDxkaXYgY2xhc3M9Im1vZGFsLWhlYWRlciI+CiAgICAgICAgPGg1Pnt7J0RFVEFJTC1JTVBPUlQtVElUTEUnfHRyYW5zbGF0ZX19PC9oNT4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0ibW9kYWwtYm9keSI+CiAgICAgICAgPHRleHRhcmVhIG5hbWU9Impzb24iIGpzb24tdmVyaWZ5IG5nLXJlcXVpcmVkPSJ0cnVlIiBuZy1tb2RlbD0ianNvbiIgcGxhY2Vob2xkZXI9Int7J0RFVEFJTC1JTVBPUlQtSU5QVVQnfHRyYW5zbGF0ZX19IiBzdHlsZT0iaGVpZ2h0OiAzNTBweDsiIGNsYXNzPSJmb3JtLWNvbnRyb2wiPjwvdGV4dGFyZWE+CiAgICA8L2Rpdj4KICAgIDxwIG5nLWlmPSJpbXBvcnQuanNvbi4kZXJyb3IuanNvbiIgY2xhc3M9InRleHQtZGFuZ2VyIiBzdHlsZT0iIG1hcmdpbi1sZWZ0OiAxOHB4OyAiPnt7J0RFVEFJTC1JTVBPUlQtRVJST1InfHRyYW5zbGF0ZX19PC9wPgogICAgPGRpdiBjbGFzcz0ibW9kYWwtZm9vdGVyIj4KICAgICAgICA8YnV0dG9uIG5nLWNsaWNrPSJpbXBvcnRSZXNwb25zZVBhcmFtZXRlcnMoanNvbikiIG5nLWRpc2FibGVkPSJpbXBvcnQuJGludmFsaWQiIGNsYXNzPSJidG4gYnRuLXByaW1hcnkiPnt7J1NVQk1JVCd8dHJhbnNsYXRlfX08L2J1dHRvbj4KICAgIDwvZGl2Pgo8L2Zvcm0+","base64"),
-        controller: ['$scope','$modalInstance',function($scope,$modalInstance){
-          $scope.importResponseParameters = function(json){
+        template: Buffer("PGZvcm0gbmFtZT0iaW1wb3J0IiByb2xlPSJmb3JtIiBub3ZhbGlkYXRlPSJub3ZhbGlkYXRlIj4KICAgIDxkaXYgY2xhc3M9Im1vZGFsLWJvZHkiIHN0eWxlPSJwYWRkaW5nOiAwOyI+CiAgICAgICAgPGRpdiBuZy1qc29uZWRpdG9yIG5nLW1vZGVsPSJqc29uIiBvcHRpb25zPSJvcHRpb25zIiBzdHlsZT0id2lkdGg6IDc5OHB4OyBoZWlnaHQ6IDUwMHB4OyI+PC9kaXY+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9Im1vZGFsLWZvb3RlciIgc3R5bGU9Im1hcmdpbi10b3A6MDsgIj4KICAgICAgICA8YnV0dG9uIG5nLWNsaWNrPSJpbXBvcnRSZXNwb25zZVBhcmFtZXRlcnMoanNvbikiIG5nLWRpc2FibGVkPSJlcnJvckpzb24iIGNsYXNzPSJidG4gYnRuLXByaW1hcnkiPnt7J1NVQk1JVCd8dHJhbnNsYXRlfX08L2J1dHRvbj4KICAgIDwvZGl2Pgo8L2Zvcm0+","base64"),
+        controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+          $scope.json = {};
+          $scope.options = {
+            mode: 'code',
+            change: function (error) {
+              $scope.errorJson = !!error;
+            }
+          };
+          $scope.importResponseParameters = function (json) {
             $modalInstance.close(json);
           }
         }]
@@ -12757,8 +12763,8 @@ module.exports = ['$scope','$stateParams','$http','$filter','$modal','json2Data'
       modalInstance.result.then(function (json) {
         var reData = [];
         var _id = 0;
-        angular.forEach(JSON.parse(json),function(o,i){
-          json2Data(i,o,_id,[],reData);
+        angular.forEach(json, function (o, i) {
+          json2Data(i, o, _id, [], reData);
           _id += 1;
         });
         $scope.data.responseParameters = reData;
@@ -13332,8 +13338,9 @@ module.exports = function() {
 
 require('./angluar-growl');
 require('./angular-confirm');
+require('./ng-jsoneditor');
 
-module.exports = angular.module('directive', ['angular-growl','angular-confirm'])
+module.exports = angular.module('directive', ['angular-growl','angular-confirm','ng.jsoneditor'])
     .directive('dyName', require('./dyName'))
     .directive('canRemove', require('./canRemove'))
     .directive('json2html', require('./json2html'))
@@ -13345,7 +13352,7 @@ module.exports = angular.module('directive', ['angular-growl','angular-confirm']
     .directive('jsonFormat', require('./jsonFormat'))
     .directive('array2str', require('./array2str'));
 
-},{"./angluar-growl":10,"./angular-confirm":11,"./array2str":12,"./canAdd":13,"./canRemove":14,"./dyName":16,"./isJson":17,"./json2html":18,"./jsonFormat":19,"./jsonVerify":20,"./mockjs":21,"./symbolFilter":22}],16:[function(require,module,exports){
+},{"./angluar-growl":10,"./angular-confirm":11,"./array2str":12,"./canAdd":13,"./canRemove":14,"./dyName":16,"./isJson":17,"./json2html":18,"./jsonFormat":19,"./jsonVerify":20,"./mockjs":21,"./ng-jsoneditor":22,"./symbolFilter":23}],16:[function(require,module,exports){
 /**
  * Created by lihui on 14-7-31.
  */
@@ -13678,6 +13685,123 @@ module.exports = function() {
     };
 }
 },{}],22:[function(require,module,exports){
+
+
+
+(function () {
+    var module = angular.module('ng.jsoneditor', []);
+    module.constant('ngJsoneditorConfig', {});
+
+    module.directive('ngJsoneditor', ['ngJsoneditorConfig', '$timeout', function (ngJsoneditorConfig, $timeout) {
+        var defaults = ngJsoneditorConfig || {};
+
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            scope: {'options': '=', 'ngJsoneditor': '=', 'preferText': '='},
+            link: function ($scope, element, attrs, ngModel) {
+                var debounceTo, debounceFrom;
+                var editor;
+                var internalTrigger = false;
+
+                if (!angular.isDefined(window.JSONEditor)) {
+                    throw new Error("Please add the jsoneditor.js script first!");
+                }
+
+                function _createEditor(options) {
+                    var settings = angular.extend({}, defaults, options);
+                    var theOptions = angular.extend({}, settings, {
+                        change: function () {
+                            if (typeof debounceTo !== 'undefined') {
+                                $timeout.cancel(debounceTo);
+                            }
+
+                            debounceTo = $timeout(function () {
+                                if (editor) {
+                                    internalTrigger = true;
+                                    var error = undefined;
+                                    try {
+                                        ngModel.$setViewValue($scope.preferText === true ? editor.getText() : editor.get());
+                                    } catch (err) {
+                                        error = err;
+                                    }
+
+                                    if (settings && settings.hasOwnProperty('change')) {
+                                        settings.change(error);
+                                    }
+                                }
+                            }, settings.timeout || 100);
+                        }
+                    });
+
+                    element.html('');
+
+                    var instance = new JSONEditor(element[0], theOptions);
+
+                    if ($scope.ngJsoneditor instanceof Function) {
+                        $timeout(function () { $scope.ngJsoneditor(instance);});
+                    }
+
+                    return instance;
+                }
+
+                $scope.$watch('options', function (newValue, oldValue) {
+                    for (var k in newValue) {
+                        if (newValue.hasOwnProperty(k)) {
+                            var v = newValue[k];
+
+                            if (newValue[k] !== oldValue[k]) {
+                                if (k === 'mode') {
+                                    editor.setMode(v);
+                                } else if (k === 'name') {
+                                    editor.setName(v);
+                                } else { //other settings cannot be changed without re-creating the JsonEditor
+                                    editor = _createEditor(newValue);
+                                    $scope.updateJsonEditor();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }, true);
+
+                $scope.$on('$destroy', function () {
+                    //remove jsoneditor?
+                });
+
+                $scope.updateJsonEditor = function (newValue) {
+                    if (internalTrigger) {
+                        //ignore if called by $setViewValue (after debounceTo)
+                        internalTrigger = false;
+                        return;
+                    }
+
+                    if (typeof debounceFrom !== 'undefined') {
+                        $timeout.cancel(debounceFrom);
+                    }
+
+                    debounceFrom = $timeout(function () {
+                        if (($scope.preferText === true) && !angular.isObject(ngModel.$viewValue)) {
+                            editor.setText(ngModel.$viewValue || '{}');
+                        } else {
+                            editor.set(ngModel.$viewValue || {});
+                        }
+                    }, $scope.options.timeout || 100);
+                };
+
+                editor = _createEditor($scope.options);
+
+                if ($scope.options.hasOwnProperty('expanded')) {
+                    $timeout($scope.options.expanded ? function () {editor.expandAll()} : function () {editor.collapseAll()}, ($scope.options.timeout || 100) + 100);
+                }
+
+                ngModel.$render = $scope.updateJsonEditor;
+                $scope.$watch(function () { return ngModel.$modelValue; }, $scope.updateJsonEditor, true); //if someone changes ng-model from outside
+            }
+        };
+    }]);
+})();
+},{}],23:[function(require,module,exports){
 /**
  * Created by lihui on 14-9-16.
  */
@@ -13701,7 +13825,7 @@ module.exports = function() {
     }
   }
 }
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * Created by lihui on 14-7-30.
  */
@@ -13711,7 +13835,7 @@ module.exports = function(){
         return val.replace(/database/g,'');
     }
 }
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * Created by lihui on 14-7-30.
  */
@@ -13721,7 +13845,7 @@ module.exports = angular.module('filter', [])
     .filter('database',require('./database'))
     .filter('toArray',require('./toArray'))
 
-},{"./database":23,"./toArray":25,"./url":26}],25:[function(require,module,exports){
+},{"./database":24,"./toArray":26,"./url":27}],26:[function(require,module,exports){
 /**
  * Created by lihui on 15-9-10.
  */
@@ -13743,7 +13867,7 @@ module.exports =  function () {
     }
   }
 }
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /**
  * Created by lihui on 14-7-30.
  */
@@ -13754,7 +13878,7 @@ module.exports = function(){
     }
 }
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function (Buffer){
 /**
  * Created by lihui on 14-7-30.
@@ -13783,7 +13907,7 @@ module.exports = ['$stateProvider', '$urlRouterProvider', '$provide', function (
 }];
 
 }).call(this,require("buffer").Buffer)
-},{"./controller/detail.js":8,"./controller/main.js":9,"buffer":3}],28:[function(require,module,exports){
+},{"./controller/detail.js":8,"./controller/main.js":9,"buffer":3}],29:[function(require,module,exports){
 /**
  *
  * @param json 需要处理的对象
@@ -13912,7 +14036,7 @@ var json2Data = function (key, value, id, array, reData) {
 
 module.exports = json2Data;
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * Created by lihui on 15-1-22.
  */
@@ -13922,4 +14046,4 @@ module.exports = angular.module('service', [])
   .factory('json2Data', function () {
     return  require('./json2Data')
   });
-},{"./json2Data":28}]},{},[7]);
+},{"./json2Data":29}]},{},[7]);

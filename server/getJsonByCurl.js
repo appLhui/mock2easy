@@ -23,7 +23,7 @@ module.exports = function(mock2easy,callback,domain,url,query,cookie){
       domain,
       url,' ',
       '--data "'+obj2StrParams(query)+'" ',
-      cookie ? "-H \"Cookie: ":'',cookie,cookie ?"; \"":''
+      cookie ? "-H \'Cookie: ":'',cookie,cookie ?"; \'":''
     ];
     sh = sh.join('');
     mock2easy.log();

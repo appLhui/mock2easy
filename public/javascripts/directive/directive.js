@@ -4,8 +4,9 @@
 
 require('./angluar-growl');
 require('./angular-confirm');
+require('./ng-jsoneditor');
 
-module.exports = angular.module('directive', ['angular-growl','angular-confirm'])
+module.exports = angular.module('directive', ['angular-growl','angular-confirm','ng.jsoneditor'])
     .directive('dyName', require('./dyName'))
     .directive('canRemove', require('./canRemove'))
     .directive('json2html', require('./json2html'))
