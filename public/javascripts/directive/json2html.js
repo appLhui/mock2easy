@@ -108,7 +108,12 @@ module.exports = function() {
                     }else if(v.kind === 'array(object)'){
                         _o[v.id] = [{}];
                     }else if(v.kind === 'string'){
-                        _o[v.id] = v.rule.toString();
+                        try {
+                          _o[v.id] = Mock.mock(v.rule.toString());
+                        }
+                        catch (e) {
+                          _o[v.id]='不符合mock规范'
+                        }
                     }else if(v.kind === 'mock'){
                         try {
                             _o[v.id] = eval(v.rule);
