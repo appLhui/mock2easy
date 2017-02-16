@@ -1,6 +1,6 @@
 {
   "name": "mock2easy",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "main": "./start.js",
   "scripts": {
     "watch": "watchify -t brfs public/javascripts/app.js -o public/build/bundle.js -v",
