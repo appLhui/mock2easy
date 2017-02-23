@@ -22,6 +22,8 @@ module.exports = function(mock2easy,options) {
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
 
+  app.use('/gitbook', express.static(path.join(process.cwd(), 'doc/_book')));
+
   app.get('./build/bundle.js', browserify(path.join(__dirname, 'public')+'/javascripts/app.js'));
 
   app.use('/', require('./routes/index')(mock2easy));

@@ -12,14 +12,14 @@ module.exports = function (mock2easy, callback) {
   var createFile = require('../../util/createFile');
   var writeFile = require('../../util/writeFile');
 
-  var initMd = function (fileName,data,ck) {
-    if(!fs.existsSync(path.resolve(options.doc))) {
+  var initMd = function (fileName, data, ck) {
+    if (!fs.existsSync(path.resolve(options.doc))) {
       fs.mkdirSync(path.resolve(options.doc));
     }
-    writeFile(path.resolve(options.doc)+'/'+fileName+'.md',data[fileName],mock2easy).then(function () {
-       ck();
+    writeFile(path.resolve(options.doc) + '/' + fileName + '.md', data[fileName], mock2easy).then(function () {
+      ck();
     }, function (err) {
-       ck(err);
+      ck(err);
     });
   }
 
@@ -28,20 +28,20 @@ module.exports = function (mock2easy, callback) {
       return callback(err);
     }
     async.parallel([function (ck) {
-      initMd('README',data,ck);
+      initMd('README', data, ck);
     }, function (ck) {
-      initMd('SUMMARY',data,ck);
-    },function(ck){
+      initMd('SUMMARY', data, ck);
+    }, function (ck) {
 
-      require('child_process').exec('gitbook build '+ path.resolve(options.doc),function(error, stdout, stderr){
-        if(error){
+      require('child_process').exec('gitbook build ' + path.resolve(options.doc), function (error, stdout, stderr) {
+        if (error) {
           return ck(error);
         }
-        require("open")('file://'+path.resolve(options.doc)+'/_book/index.html');
-        ck(null,stdout);
+        require("open")('http://localhost:'+ options.port+ '/gitbook/');
+        ck(null, stdout);
       });
     }
-    ],callback);
+    ], callback);
 
   });
 
