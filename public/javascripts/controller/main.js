@@ -3,10 +3,11 @@
  */
 var fs = require('fs');
 
-module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 'json2Data', 'config','growl', '$confirm',function ($scope, $state, $http, $modal, $filter, $timeout, json2Data, config,growl,$confirm) {
+module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 'json2Data', 'config', 'growl', '$confirm', function ($scope, $state, $http, $modal, $filter, $timeout, json2Data, config, growl, $confirm) {
 
   angular.extend($scope, {
     interfaceSuffix: config.interfaceSuffix,
+    interfaceRule: config.interfaceRule,
     data: {},
     recordData: {
       requiredParameters: []
@@ -42,25 +43,25 @@ module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 
     del: function (url) {
       $confirm({
         text: window.language['MAIN-DELETE-CONTENT'],
-        title:window.language.DELETE,
-        ok:window.language.SUBMIT,
-        cancel:window.language.CANCEL
-      }).then(function() {
-          $http.post('/del', {
-            interfaceUrl: url
-          }).then(function (data) {
-            $scope.render();
-            growl.addSuccessMessage(window.language.SUCCESS);
-          });
+        title: window.language.DELETE,
+        ok: window.language.SUBMIT,
+        cancel: window.language.CANCEL
+      }).then(function () {
+        $http.post('/del', {
+          interfaceUrl: url
+        }).then(function (data) {
+          $scope.render();
+          growl.addSuccessMessage(window.language.SUCCESS);
         });
+      });
     },
-    checkGitBook:function(){
+    checkGitBook: function () {
       $http.post('/gitbook').then(function (data) {
-        if(data.data.code == 200){
+        if (data.data.code == 200) {
           growl.addSuccessMessage(window.language['SUCCESS']);
-        }else{
+        } else {
           $modal.open({
-            template: '<div class="modal-header"><h3>'+window.language['GITBOOK-UNINSTALL']+'</h3></div> <div class="modal-body">'+window.language['GITBOOK-UNINSTALL-CONTENT']+'</div>'
+            template: '<div class="modal-header"><h3>' + window.language['GITBOOK-UNINSTALL'] + '</h3></div> <div class="modal-body">' + window.language['GITBOOK-UNINSTALL-CONTENT'] + '</div>'
           });
         }
       });
@@ -97,6 +98,7 @@ module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 
             data: data.config,
             interfaceSuffix: data.interfaceSuffix,
             change: function (newUrl) {
+              if (window.interfaceRule) newUrl += '.mock2easy';
               $http.post('/changeUrl', {
                 url: $scope.url,
                 newUrl: newUrl
@@ -138,7 +140,7 @@ module.exports = ['$scope', '$state', '$http', '$modal', '$filter', '$timeout', 
                 return $scope.recordData;
               }
             },
-            controller: ['$scope', '$modalInstance', 'data' , function ($scope, $modalInstance, data) {
+            controller: ['$scope', '$modalInstance', 'data', function ($scope, $modalInstance, data) {
               angular.extend($scope, {
                 data: data,
                 record: function () {

@@ -87,6 +87,16 @@ Default value:  `.json`
 Default value is `.json`, all generated interface end with `.json`. All the interface end with ‘.action’, you can change the attribute to `.action`
 
 默认为`.json` ,产生的接口都是以`.json`为后缀的，若你的接口全部都是`.action`结尾的话，可以将该属性更改为`.action`。
+后缀不能设置为`.mock2easy` 该后缀已经占用。
+
+
+#### options.interfaceRule
+
+Type: `RegEx`
+
+Default value:  `null`
+
+接口拦截方案，通过正则表但是的方式进行请求接口拦截，如果`options.interfaceRule` 参数设定，则`options.interfaceSuffix` 将会失效。
 
 #### options.ignoreField
 

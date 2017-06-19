@@ -36,12 +36,20 @@ module.exports = function (req, res, next) {
 
   if(typeof req.url != 'string') return next();
 
-  if(req.url.indexOf('?') ==-1){
-    if(!endsWith(req.url,"{{interfaceSuffix}}")) return next();
-  }else{
-    var _url = req.url.split('?')[0];
-    if(!endsWith(_url,"{{interfaceSuffix}}")) return next();
-  }
+  <% if(interfaceRule){%>
+
+     if(!!<%=interfaceRule%> && !<%=interfaceRule%>.test(req.url)){
+       return next();
+     }
+
+   <%}else{ %>
+      if(req.url.indexOf('?') ==-1){
+        if(!endsWith(req.url,"<%=interfaceSuffix%>")) return next();
+      }else{
+        var _url = req.url.split('?')[0];
+        if(!endsWith(_url,"<%=interfaceSuffix%>")) return next();
+      }
+   <%}%>
 
   getBody(req, res, function (err, body) {
     if (err) {
@@ -57,8 +65,8 @@ module.exports = function (req, res, next) {
 
     var options = {
       hostname: '127.0.0.1',
-      port: {{port}},
-      path: req.url,
+      port: <%=port%> ,
+      path: req.url  <%if(interfaceRule){%>+'<%=interfaceSuffix%>' <%}%>,
       method: req.method,
       headers: {
         'Content-Type': 'application/json',

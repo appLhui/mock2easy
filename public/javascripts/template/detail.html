@@ -13,7 +13,7 @@
         <label class="col-sm-3 control-label">{{'DETAIL-URL'|translate}}：</label>
 
         <div class="col-sm-9 form-control-static">
-          <span class=" text-info" ng-bind="data.interfaceUrl"> </span>
+          <span class=" text-info" ng-bind="data.interfaceUrl|database"> </span>
         </div>
       </div>
 
@@ -193,7 +193,7 @@
 
     <h6>{{'DETAIL-URL'|translate}}</h6>
 
-    <p ng-bind="data.interfaceUrl" ng-if="data.interfaceUrl.length" class="text-muted"></p>
+    <p ng-bind="data.interfaceUrl|database" ng-if="data.interfaceUrl.length" class="text-muted"></p>
     <p ng-if="!data.interfaceUrl.length" class="text-muted">--</p>
 
     <h6>{{'DETAIL-TYPE'|translate}}</h6>

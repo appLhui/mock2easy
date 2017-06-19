@@ -6,7 +6,7 @@ html
         link(rel='stylesheet', href='/stylesheets/util/bootstrap.css')
         link(rel='stylesheet', href='/stylesheets/util/angular-ui.css')
         link(rel='stylesheet', href='/stylesheets/util/jsoneditor.css')
-        | <script>window.interfaceSuffix="#{interfaceSuffix}";window.language = !{language}</script>
+        | <script>window.interfaceSuffix="#{interfaceSuffix}";window.language = !{language};window.interfaceRule=#{interfaceRule||false};</script>
     body(style="padding:10px;")
         div(ui-view)
         script(type="text/javascript",src="/build/jsoneditor.min.js")

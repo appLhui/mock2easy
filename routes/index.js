@@ -10,6 +10,7 @@ module.exports = function (mock2easy) {
   router.get('/', function (req, res) {
     res.render('index', {
       interfaceSuffix: global.options.interfaceSuffix,
+      interfaceRule: global.options.interfaceRule,
       language: JSON.stringify(global.language)
     });
   });

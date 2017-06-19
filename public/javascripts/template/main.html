@@ -148,7 +148,7 @@
           <accordion close-others="true">
             <accordion-group ng-repeat="i in log | orderBy: '-mtime'">
               <accordion-heading>
-                {{i.url}}
+                {{i.url|database}}
                 <a class="btn btn-default btn-xs pull-right" ui-sref="detail({url:i.urlFilter})">
                   <span class="glyphicon glyphicon-edit text-info" ng-class="{'text-warning':i.docError.length,'text-danger':i.reqError.length}"></span>
                 </a>

@@ -18,7 +18,8 @@ module.exports = ['$stateProvider', '$urlRouterProvider', '$provide', function (
     });
 
   $provide.constant('config', {
-    interfaceSuffix: window.interfaceSuffix
+    interfaceSuffix: window.interfaceSuffix,
+    interfaceRule: window.interfaceRule
   });
 
 

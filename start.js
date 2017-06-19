@@ -41,9 +41,9 @@ module.exports = function(mock2easy,options ,ck){
   }
 
 
-  _.templateSettings = {
-    interpolate: /\{\{(.+?)\}\}/g
-  };
+  //_.templateSettings = {
+  //  interpolate: /\{\{(.+?)\}\}/g
+  //};
 
 
   var makeDo = function(mock2easy,options){
@@ -63,12 +63,17 @@ module.exports = function(mock2easy,options ,ck){
               mock2easy.error(err);
             } else {
 
+              if(options.interfaceRule)  options.interfaceSuffix = '.mock2easy';
+
               require('./util/writeFile')(path.resolve(options.database) + '/do.js',_.template(data)({
                 port: options.port,
-                interfaceSuffix: options.interfaceSuffix
+                interfaceSuffix: options.interfaceSuffix,
+                interfaceRule: options.interfaceRule
               }), mock2easy).then(function () {
                 callback();
               });
+
+
             }
           });
         }

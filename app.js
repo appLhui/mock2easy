@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 
-module.exports = function(mock2easy,options) {
+module.exports = function (mock2easy, options) {
 
 
   var app = express();
@@ -24,21 +24,23 @@ module.exports = function(mock2easy,options) {
 
   app.use('/gitbook', express.static(path.join(process.cwd(), 'doc/_book')));
 
-  app.get('./build/bundle.js', browserify(path.join(__dirname, 'public')+'/javascripts/app.js'));
+  app.get('./build/bundle.js', browserify(path.join(__dirname, 'public') + '/javascripts/app.js'));
 
   app.use('/', require('./routes/index')(mock2easy));
 
-  if(!!options.curl){
-    app.use('/*'+options.interfaceSuffix,require('./routes/getJsonByCurl')(mock2easy));
-  }else if(!!options.postman){
-    app.use('/*'+options.interfaceSuffix,require('./routes/getJsonByPostman')(mock2easy));
-  }else{
-    app.use('/*'+options.interfaceSuffix,require('./routes/getJson')(mock2easy,options.ignoreField));
+  var rule = options.interfaceRule ? options.interfaceRule : '/*' + options.interfaceSuffix;
+
+  if (!!options.curl) {
+    app.use(rule, require('./routes/getJsonByCurl')(mock2easy));
+  } else if (!!options.postman) {
+    app.use(rule, require('./routes/getJsonByPostman')(mock2easy));
+  } else {
+    app.get(rule, require('./routes/getJson')(mock2easy, options.ignoreField));
   }
 
 
 /// catch 404 and forward to error handler
-  app.use(function(req, res, next) {
+  app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -46,7 +48,7 @@ module.exports = function(mock2easy,options) {
 
 
   if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
       res.status(err.status || 500);
       res.render('error', {
         message: err.message,
@@ -55,7 +57,7 @@ module.exports = function(mock2easy,options) {
     });
   }
 
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
